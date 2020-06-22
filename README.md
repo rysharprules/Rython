@@ -32,12 +32,28 @@ Ryan's Python learning materials
       - [Adding items to a list](#adding-items-to-a-list)
       - [Concatenation](#concatenation-1)
       - [Length](#length-1)
+      - [Copy](#copy)
     - [Dictionary](#dictionary)
       - [Accessing individual items](#accessing-individual-items)
       - [Adding to and modifying](#adding-to-and-modifying)
       - [Removing items](#removing-items)
       - [Length](#length-2)
     - [Set](#set)
+  - [Flow Control](#flow-control)
+    - [Condtions](#condtions)
+    - [Code Blocks](#code-blocks)
+  - [Flow Control Statements](#flow-control-statements)
+    - [If Statements](#if-statements)
+    - [Else Statements](#else-statements)
+    - [Elif Statements](#elif-statements)
+    - [While loops](#while-loops)
+      - [Break and Continue Statements](#break-and-continue-statements)
+    - [For Loops](#for-loops)
+      - [`range` function](#range-function)
+      - [`enumerate` function](#enumerate-function)
+      - [List Comprehension](#list-comprehension)
+    - [Try, Except and Finally](#try-except-and-finally)
+      - [Error Types](#error-types)
   - [Note To Read Later](#note-to-read-later)
 
 ## Installation
@@ -75,6 +91,9 @@ There are two types of comments:
     ````
 
 ## Data Types and Variables
+
+All variables in Python are what are known as references. This means that when you
+assign a variable to a value, that variable is an `alias` for that value. For complex data types like lists this can mean that changing the values for one variable may result in changes for another as they point to the same object reference.
 
 ### Variable Name Restrictions
 
@@ -163,8 +182,7 @@ concatenate str (not "int")
 to str
 ````
 
-You would need to explicitly cast the number to a string using the `str()` function before it can be
-added:
+You would need to explicitly cast the number to a string using the `str` function before it can be added:
 
 ````
 >>> 'Total = ' + str(18)
@@ -210,13 +228,11 @@ You can obtain a string consisting of the part of a string between a start point
 If you leave out either the start (or the end) index, then Python assumes that you want to start from the beginning of the string (or go all the way to the end).
 
 ````
->>> original_string =
-'Supercalifragilistic'
+>>> original_string = 'Supercalifragilistic'
 >>> original_string[0:5] # 'Super'
 >>> original_string[5:9] # 'cali'
 >>> original_string[:5] # 'Super'
->>> original_string[9:] #
-'fragilistic'
+>>> original_string[9:] # 'fragilistic'
 ````
 
 ### Numbers
@@ -394,6 +410,17 @@ You can get the length of a list using the `len` function:
 >>> len(my_list) # 4
 ````
 
+#### Copy
+
+To get a copy of a list:
+
+````
+a_variable = [1, 2]
+another_variable = a_variable.copy()
+````
+
+This avoids multiple variables pointing to the same reference list.
+
 ### Dictionary
 
 This data type stores _key-value_ pairs similar to a `Map` in Java, where each key is unique.
@@ -467,9 +494,237 @@ A set is essentially a dictionary but without values. Set's are similar to lists
 >>> 'crabgrass' in basket False
 ````
 
+## Flow Control
+
+There are several types of flow control statement. Most of them consist of two important parts:
+
+1. a condition
+1. code blocks
+
+### Condtions
+
+A _condition_ in Python is any Boolean expression, i.e. anything that evaluates to `True` or `False`.
+
+### Code Blocks
+
+Lines of code are grouped together in blocks using _indentation_. Lines with the same level of indentation belong to the same block, and you start a new code block within the current block by increasing the indentation level. When you want to return to the outer code block, simply return the indentation level to match the outer block. It's conventional for programs to begin with no indentation, and for each nested code block to have **four** more spaces of
+indentation than its parent block.
+
+## Flow Control Statements
+
+### If Statements
+
+`if` statements consist of the following:
+
+- The `if` keyword
+- An expression
+- A colon
+- A code block, starting on the line after the expression
+
+````
+if True:
+  print('First if statement')
+
+if False:
+  print('Second if statement')
+
+if 1 + 2 == 3:
+  print('Third if statement')
+
+if 1 > 2 or 3 < 4:
+  print('Fourth if statement')
+````
+
+Answers by statement:
+
+1. This is printed.
+1. This is not printed.
+1. 1 + 2 == 3 evaluates to True so this is printed.
+1. 3 < 4 is true so this is printed.
+
+### Else Statements
+
+The code block of an `if` statement can, optionally, be followed by an `else` statement. The `else` acts as a counterpart to the `if` — it will be executed exactly when the `if` statement's condition is False. An `else` statement doesn't have its own condition, because it relies entirely on the resolution of the `if` condition.
+
+An `else` statement simply consists of the keyword `else` and a colon, and then a code block starting on the next line.
+
+````
+if True:
+  print('First if statement')
+else:
+  print('First else statement')
+
+if False:
+  print('Second if statement')
+else:
+  print('Second else statement')
+
+if 1 + 2 == 3:
+  print('Third if statement')
+else:
+  print('Third else statement')
+
+if 1 > 2 or 3 < 4:
+  print('Fourth if statement')
+else:
+  print('Fourth else statement')
+````
+
+Answers by if/else statement:
+
+1. First if statement.
+1. Second else statement.
+1. Third if statement.
+1. Fourth if statement.
+
+### Elif Statements
+
+Similar to an `else` it can only follow an `if` statement. It can also follow another `elif` statement. `elif` statements include an additional condition, similar to `else if` in other languages.
+
+````
+if age < 2:
+  print('You are a baby')
+elif age < 18:
+  print('You are a child')
+elif age < 100:
+  print('You are an adult')
+else:
+  print('You are really old!')
+````
+
+### While loops
+
+The `if` statement checks its condition only once, and executes the code block once `if` the condition is `True`. On the other hand, the `while` statement checks its condition multiple times — once at the start, and once after each execution of the code block — and for as long
+as the condition continues to be `True`.
+
+A `while` statement consists of:
+
+- The `while` keyword
+- A condition
+- A colon
+- A code block beginning on the next line
+
+````
+times_run = 0
+while times_run < 10:
+  print('Hello!')
+  times_run = times_run + 1
+````
+
+````
+password = ''
+while password != 'secret':
+  password = input('What is the password?')
+print('Access granted')
+````
+
+#### Break and Continue Statements
+
+The `break` keyword exits the loops, even if the condition is still `True`. The `continue` keyword exits the _current_ iteration of the loop, going back to tthe condition check on the `while`.
+
+````
+while True:
+  password = input('What is the password?')
+  if password == 'secret':
+    break
+print('Access granted')
+
+while True:
+  username = input('What is your username?')
+  if username != 'admin':
+    continue
+  password = input('What is the password?')
+  if password == 'topsecret':
+    break
+print('Access granted')
+````
+
+### For Loops
+
+Whereas the while loop keeps looping for as long as its condition is True, a for loop is for running some code a certain number of times.
+
+A for loop consists of the following parts:
+- The for keyword
+- A variable name (it doesn't need to exist yet) for the _loop variable_
+- The in keyword
+- An iterable (something consisting of a collection of values, e.g. a list)
+- A colon
+- A code block, starting on the next line
+
+````
+teletubbies = ['Tinky Winky', 'Dipsy', 'La La', 'Po']
+for name in teletubbies:
+  print(name)
+````
+
+Like while loops, the for loop can also use the `break` and `continue` statements.
+
+#### `range` function
+
+One very common use of the for loop is to iterate over a range of numbers, and this is done using the built-in `range` function. The `range` function lets you specify a starting number and an ending number, and will iterate over all numbers between them — including the start number, but _not_ including the end number.
+
+````
+for index in range(0, len(teletubbies)):
+  print('The Teletubby at index ' + str(index) + ' is ' + teletubbies[index])
+````
+
+#### `enumerate` function
+
+If you need to refer to the index of each element as well as the element itself, you can use the `enumerate` function:
+
+````
+for index, value in enumerate(teletubbies):
+  print (index, ": ", value)
+````
+
+#### List Comprehension
+
+As an alternative to the `for`, list comprehenstion can be used as a more declarative, easier to read and understand shorthand:
+
+`[print(name) for name in teletubbies]`
+
+### Try, Except and Finally
+
+Try, `except` and `finally` are synomous with `try...catch` in other languages, where the `except` block is executed if the try block raises an error. The `except` block can catch all or specific errors. If present, the `finally` block is always executed.
+
+````
+number = 12
+try:
+  msg = 'hello' + number # TypeError is raised
+except:
+  print('Something went wrong!') # TypeError is caught and except block is executed
+
+try:
+  msg = 'hello' + number # TypeError is raised
+except TypeError:
+  print('Something went wrong!') # TypeError is caught and except block is executed
+finally:
+  print('Exiting the try block') # Always executed
+
+dict = {}
+try:
+  dict['Apple'] # KeyError is raised
+except TypeError:
+  print('Something went wrong!') # This block only catches TypeError so is skipped
+finally:
+  print('Exiting the try block') # Always executed - the original KeyError would be raised
+
+exiting the try block
+Traceback (most recent call last):
+File ".\greeting.py", line 6, in <module>
+dict['Apple']
+KeyError: 'Apple'
+````
+
+
+
+#### Error Types
+
+- Syntax errors: this is where code isn't valid Python
+- Type errors: this is where the type of some data does not fit what is expected from a function or operator — e.g. when trying to add a number to a string: 'hello' + 12
+
 ## Note To Read Later
-tuple
-`in`
-magic methods
-more on arrays
-classes
+- tuple
+- magic methods
+- more on arrays
+- classes

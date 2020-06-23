@@ -54,6 +54,8 @@ Ryan's Python learning materials
       - [List Comprehension](#list-comprehension)
     - [Try, Except and Finally](#try-except-and-finally)
       - [Error Types](#error-types)
+  - [Functions](#functions)
+    - [Returning data](#returning-data)
   - [Note To Read Later](#note-to-read-later)
 
 ## Installation
@@ -544,7 +546,7 @@ Answers by statement:
 
 ### Else Statements
 
-The code block of an `if` statement can, optionally, be followed by an `else` statement. The `else` acts as a counterpart to the `if` — it will be executed exactly when the `if` statement's condition is False. An `else` statement doesn't have its own condition, because it relies entirely on the resolution of the `if` condition.
+The code block of an `if` statement can, optionally, be followed by an `else` statement. The `else` acts as a counterpart to the `if` — it will be executed exactly when the `if` statement's condition is `False`. An `else` statement doesn't have its own condition, because it relies entirely on the resolution of the `if` condition.
 
 An `else` statement simply consists of the keyword `else` and a colon, and then a code block starting on the next line.
 
@@ -641,7 +643,7 @@ print('Access granted')
 
 ### For Loops
 
-Whereas the while loop keeps looping for as long as its condition is True, a for loop is for running some code a certain number of times.
+Whereas the while loop keeps looping for as long as its condition is `True`, a for loop is for running some code a certain number of times.
 
 A for loop consists of the following parts:
 - The for keyword
@@ -716,15 +718,62 @@ dict['Apple']
 KeyError: 'Apple'
 ````
 
-
-
 #### Error Types
 
 - Syntax errors: this is where code isn't valid Python
 - Type errors: this is where the type of some data does not fit what is expected from a function or operator — e.g. when trying to add a number to a string: 'hello' + 12
+
+## Functions
+
+At its simplest, a function definition consists of the following, in order:
+
+- The `def` keyword
+- A name for the function
+- A pair of parentheses
+- A colon
+- A code block, starting on the next line
+
+You can add a _default value_ with `=` when declaring the parameters in the definition. Note, a non-default argument cannot follow a default argument.
+
+you to send arguments using `key = value` syntax, called _keyword arguments_ (as opposed to _positional arguments_). Keyword arguments can also be specified in any order. Functions can be called with a mix of positional and named arguments
+
+````
+def print_item(name, price_in_pennies = 100):
+  formatted_price = '£{:.2f}'.format(price_in_pennies / 100.0)
+  print('Item: ' + name)
+  print('Price: ' + formatted_price)
+
+print_item('Milk', 85)
+print_item('Coffee', 249)
+print_item('Orange Juice', 110)
+print_item('Eggs') # default price
+print_item(price_in_pennies = 1999, name = 'Jamesons') # keyword arguments (unordered)
+print_item('Cat Food', price_in_pennies = 149) # mix of positional and named arguments
+````
+
+_Note: If you call the above with the wrong amount of arguments you'll see an error like:_
+
+_`TypeError: greet_user() takes exactly 2 arguments (1 given)`_
+
+### Returning data
+
+Functions can return data with the `return` statement.
+
+````
+def square(number) -> int: # return type hint - ignored by the interpreter
+  return number * number
+
+result = square(5)
+print(result)
+print(square(3))
+````
+
+_Note: An empty return will return `None`, similar to `null`. It's shorthand for `return None`_
 
 ## Note To Read Later
 - tuple
 - magic methods
 - more on arrays
 - classes
+- decorator syntax: https://book.pythontips.com/en/latest/decorators.html
+- keyword arguments: https://treyhunner.com/2018/04/keyword-arguments-in-python/

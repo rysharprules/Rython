@@ -19,6 +19,7 @@ Ryan's Python learning materials
       - [Character access](#character-access)
       - [Slices](#slices)
     - [Numbers](#numbers)
+      - [Casting](#casting)
     - [Boolean](#boolean)
       - [Combining Boolean expressions](#combining-boolean-expressions)
         - [Precedence](#precedence)
@@ -260,6 +261,10 @@ You can use all the mathematical operations that you're used to:
 
 _Note: `**`, is the Python version of the exponentiation operator, which you might know as the “power
 of” operator: above it calculates 3 to the power of 3._
+
+#### Casting
+
+You can cast to an int with the `int()` function.
 
 ### Boolean
 

@@ -20,7 +20,7 @@ def fizzbuzz():
         elif index % 21 == 0:
             twentyone = fizz + fezz + bang
             if reverse:
-                twentyone = fizz + fezz + buzz
+                twentyone = bang + fezz + fizz
             print(twentyone)
         elif index % 11 == 0:
             eleven = fezz + bong

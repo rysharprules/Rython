@@ -1,7 +1,6 @@
-# Rython
-Ryan's Python learning materials
+# Fundamentals
 
-- [Rython](#rython)
+- [Fundamentals](#fundamentals)
   - [Installation](#installation)
   - [Basics](#basics)
     - [REPL](#repl)
@@ -67,7 +66,7 @@ _Note: Version **3.8.3** was used in this course._
 
 ## Basics
 
-check the [Python documentation](https://docs.python.org/3/) to clarify how a given feature works.
+Check the [Python documentation](https://docs.python.org/3/) to clarify how a given feature works.
 
 ### REPL 
 

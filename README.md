@@ -2,7 +2,7 @@
 
 Python learning materials.
 
-<img src="logo.png" alt="Python" width="120"/>
+<img src="img/logo.png" alt="Python" width="120"/>
 
 ## Contents
 

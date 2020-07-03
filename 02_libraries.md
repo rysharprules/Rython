@@ -6,6 +6,9 @@
       - [Creating a virtual enviroment](#creating-a-virtual-enviroment)
   - [Flask Framework](#flask-framework)
     - [Routing](#routing)
+    - [Templates](#templates)
+      - [`url_for`](#url_for)
+    - [Accessing request data](#accessing-request-data)
 
 ## Packages
 
@@ -97,3 +100,74 @@ Flask treats anything inside angle brackets `<...>` specially, and will extract 
 argument to the function.
 
 In the above example, requests with URL paths `/books/1` and `/books/27` would cause Flask to call `get_book(1)` and `get_book(27)`, respectively. These are called **variable rules** in Flask and are used to determine what _entity_ the action should be performed on. Variable rules are also capable of extracting more complex values from request paths and validating that those values match an expected format. You can read more about them in the [Flask documentation](https://flask.palletsprojects.com/en/1.1.x/quickstart/#variable-rules).
+
+### Templates
+
+Templates allow you to write files containing standard HTML, but use special keywords to add logic and include data from the app, which the template engine then converts into the necessary HTML. Flask uses the [Jinja2](https://palletsprojects.com/p/jinja/) template engine and provides the `render_template()` function to render the HTML from a given template. That function takes the filename of the template as its first argument and any data to be passed to the template as optional keyword arguments.
+
+````
+@app.route('/books')
+def get_books():
+  books = get_all_books_from_db() # Some function that returns the list of book entries from the database.
+  return render_template('book_list.html', books=books)
+````
+
+_Note - you will need to import the `render_template` function, e.g. `from flask import Flask, render_template`_
+
+Flask will look for templates (`.html` files) in the templates folder: `/templates/...`
+
+Here's the `book_list.html` template, which uses the books variable that is passed in by the `render_template()` function:
+
+````
+<!doctype html>
+<html>
+  <head>
+    <title>All Books</title>
+  </head>
+  <body>
+    <ul>
+    {% for book in books %}
+      <li>
+        {{ book.title }} - {{book.authors}}
+        <a href="/books/{{ book.id }}">View Details</a>
+      </li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
+````
+
+Included above are:
+
+1. **Statements**: `{% ... %}` are for flow control — in this case, these define the start and end of a `for` loop to iterate over the list of books that are stored in the `books` variable.
+1. **Expressions**: `{{ ... }}` evaluate a Python expression and populate the HTML with the result — in this case, the values of `book.title`, `book.author`, and `book.id` for each element in the `books` list are inserted into the generated HTML.
+
+_Note: In Python, we normally don't need to end for loops or other flow control blocks, since the interpreter is able to determine when the loop ends from the indentation in the file. This is not true for Jinja templates, `endfor` is explicitly required. This is the same for `if` statements, using `endif`._
+
+#### `url_for`
+
+we could replace the hardcoded “/books/1" path with the url_for() function:
+
+`<a href=“{{ url_for('get_book', id=book.id) }}">View Details</a>`
+
+When Flask generates the HTML from this template, it will call `url_for()` and replace it in the final HTML with the return value from that function ("`/books/1`").
+
+You can read more about the template syntax in the official [Jinja2 template documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/).
+
+### Accessing request data
+
+Data is provided by the [request object](https://flask.palletsprojects.com/en/1.1.x/quickstart/#the-request-object).
+
+````
+from flask import request
+
+@app.route('/login', methods=['POST'])
+def login():
+  username = request.form['username']
+  password = request.form['password']
+  if valid_login(username, password):
+    return log_the_user_in(username)
+  else:
+    error = 'Invalid username/password'
+    return render_template('login_error.html', error=error)
+````

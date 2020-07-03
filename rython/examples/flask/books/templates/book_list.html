@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+<title>All Books</title>
+</head>
+<body>
+<ul>
+{% for book in books %}
+<li>
+{{ book.title }} - {{book.authors}}
+<a href="{{ url_for('get_book', id=book.id) }}">View Details</a>
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>

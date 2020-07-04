@@ -1,7 +1,7 @@
 from datetime import datetime
 import shutil, os
 
-folder = input('Choose a folder to rename the contents of (e.g. files1/files2)... ')
+folder = input('Choose a folder to rename the files of (e.g. files1/files2)... ')
 now = datetime.now()
 
 for root, dirs, files in os.walk(folder):

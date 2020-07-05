@@ -2,6 +2,7 @@
 
 - [Libraries and the Flask web framework](#libraries-and-the-flask-web-framework)
   - [Packages](#packages)
+    - [Importing](#importing)
     - [Virtual Environments](#virtual-environments)
       - [Creating a virtual enviroment](#creating-a-virtual-enviroment)
   - [Flask Framework](#flask-framework)
@@ -9,23 +10,18 @@
     - [Templates](#templates)
       - [`url_for`](#url_for)
     - [Accessing request data](#accessing-request-data)
+  - [I/O operations with `shutils` and `os`](#io-operations-with-shutils-and-os)
 
 ## Packages
 
-The most popular tool for installing Python packages is [**pip**](https://pip.pypa.io/en/stable/),
-which is included with all modern versions of Python. It provides
-the core features for finding, downloading, and installing
-packages from the [Python Package Index](https://pypi.org/) (**PyPI**) and other
-Python package repositories, and is designed to be used from
+The most popular tool for installing Python packages is [**pip**](https://pip.pypa.io/en/stable/), which is included with all modern versions of Python. It provides the core features for finding, downloading, and installing packages from the [Python Package Index](https://pypi.org/) (**PyPI**) and other Python package repositories, and is designed to be used from
 the command line / terminal.
 
 It's pretty simple to install a package using pip:
 
 `pip install some-package-name`
 
-This will install the latest version of the package (assuming it
-exists on PyPI). You can specify an exact version when installing a package, for
-example:
+This will install the latest version of the package (assuming it exists on PyPI). You can specify an exact version when installing a package, for example:
 
 `pip install some-package-name==1.4`
 
@@ -35,21 +31,39 @@ You can install multiple packages with a [requirements.txt](https://pip.pypa.io/
 
 `pip install -r requirements.txt`
 
+### Importing
+
+`import abc`
+
+The first thing Python will do is look up the name `abc` in [sys.modules](https://docs.python.org/3/library/sys.html#sys.modules). This is a cache of all modules that have been previously imported.
+
+If the name isn’t found in the module cache, Python will proceed to search through a list of built-in modules. These are modules that come pre-installed with Python and can be found in the [Python Standard Library](https://docs.python.org/3/library/). If the name still isn’t found in the built-in modules, Python then searches for it in a list of directories defined by [sys.path](https://docs.python.org/3/library/sys.html#sys.path). This list usually includes the current directory, which is searched first.
+
+When Python finds the module, it binds it to a name in the local scope. This means that abc is now defined and can be used in the current file without throwing a `NameError`.
+
+If the name is never found, you’ll get a `ModuleNotFoundError`.
+
+In the example above, `abc` can be a package or a module. When you use the second syntax, you `import` the resource from another package or module. Here’s an example:
+
+`from abc import xyz`
+
+`xyz` can be a module, subpackage, or object, such as a class or function.
+
+`import abc as other_name`
+
+This renames the imported resource `abc` to `other_name` within the script. It must now be referenced as `other_name`, or it will not be recognized.
+
 ### Virtual Environments
 
 By default, all Python packages are installed in a common location on your machine. However, this can lead to problems when working on multiple projects that require different versions of the same package.
 
-The [**Python virtual environment**](https://docs.python.org/3/tutorial/venv.html) is a self-contained
-directory within the project directory that contains a dedicated Python installation for a particular version of Python, plus any packages needed by that project. Different projects can have their own virtual environments with the specific versions of the packages they need, and each virtual environment is isolated
-from the others, so there are no conflicts.
+The [**Python virtual environment**](https://docs.python.org/3/tutorial/venv.html) is a self-contained directory within the project directory that contains a dedicated Python installation for a particular version of Python, plus any packages needed by that project. Different projects can have their own virtual environments with the specific versions of the packages they need, and each virtual environment is isolated from the others, so there are no conflicts.
 
 #### Creating a virtual enviroment
 
 `python -m venv env`
 
-This will create a virtual environment in a subdirectory called env. You then need to tell your terminal to
-use that environment for this project by activating the environment. On Windows machines, you do this
-using the following command:
+This will create a virtual environment in a subdirectory called env. You then need to tell your terminal to use that environment for this project by activating the environment. On Windows machines, you do this using the following command:
 
 `env\Scripts\activate.bat`
 
@@ -65,7 +79,7 @@ You can install Flask with pip:
 
 ![Figure 1.1](img/figure1-1.png)
 
-[See example 'Hello World' Flask web app.](https://github.com/rysharprules/Rython/blob/master/rython/examples/flask/app.py). This can be run from command line within the same directory with:
+[See example 'Hello World' Flask web app](https://github.com/rysharprules/Rython/blob/master/rython/examples/flask/app.py). This can be run from command line within the same directory with:
 
 `flask run`
 
@@ -171,3 +185,13 @@ def login():
     error = 'Invalid username/password'
     return render_template('login_error.html', error=error)
 ````
+
+## I/O operations with `shutils` and `os`
+
+These libraries can be imported with `import shutil, os`.
+
+The [shutil](https://docs.python.org/3/library/shutil.html#module-shutil) module offers a number of high-level operations on files and collections of files. In particular, functions are provided which support file copying and removal. 
+
+For operations on individual files, see also the [os](https://docs.python.org/3/library/os.html#module-os) module. This module provides a portable way of using operating system dependent functionality. 
+
+[See examples via 'Bulk File/Folder Renaming' app](https://github.com/rysharprules/Rython/blob/master/rython/exercises/bulk_file_renaming/).

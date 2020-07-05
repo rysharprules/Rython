@@ -44,10 +44,12 @@
     - [Code Blocks](#code-blocks)
   - [Flow Control Statements](#flow-control-statements)
     - [If Statements](#if-statements)
+      - [Shorthand `if`](#shorthand-if)
     - [Else Statements](#else-statements)
     - [Elif Statements](#elif-statements)
     - [While loops](#while-loops)
       - [Break and Continue Statements](#break-and-continue-statements)
+      - [`else`](#else)
     - [For Loops](#for-loops)
       - [`range` function](#range-function)
       - [`enumerate` function](#enumerate-function)
@@ -56,7 +58,6 @@
       - [Error Types](#error-types)
   - [Functions](#functions)
     - [Returning data](#returning-data)
-  - [Note To Read Later](#note-to-read-later)
 
 ## Installation
 
@@ -548,6 +549,12 @@ Answers by statement:
 1. 1 + 2 == 3 evaluates to True so this is printed.
 1. 3 < 4 is true so this is printed.
 
+#### Shorthand `if`
+
+If you have only one statement to execute and no `else`, you can put it on one line:
+
+`if a > b: print("a is greater than b")`
+
 ### Else Statements
 
 The code block of an `if` statement can, optionally, be followed by an `else` statement. The `else` acts as a counterpart to the `if` — it will be executed exactly when the `if` statement's condition is `False`. An `else` statement doesn't have its own condition, because it relies entirely on the resolution of the `if` condition.
@@ -643,6 +650,20 @@ while True:
   if password == 'topsecret':
     break
 print('Access granted')
+````
+
+#### `else`
+
+You can call `else` on a `while`:
+
+````
+i = 1
+while i < 6:
+  print(i)
+  i += 1
+else:
+  print("i is no longer less than 6")
+
 ````
 
 ### For Loops
@@ -773,11 +794,3 @@ print(square(3))
 ````
 
 _Note: An empty return will return `None`, similar to `null`. It's shorthand for `return None`_
-
-## Note To Read Later
-- tuple
-- magic methods
-- more on arrays
-- classes
-- decorator syntax: https://book.pythontips.com/en/latest/decorators.html
-- keyword arguments: https://treyhunner.com/2018/04/keyword-arguments-in-python/

@@ -529,7 +529,6 @@ To write a tuple containing a single value you have to include a comma:
 
 `my_tuple = (26,)`
 
-
 Can be used to return multiple values from functions:
 
 ````
@@ -778,7 +777,8 @@ pythagorean_triples = [
 print(pythagorean_triples) # [(3, 4), (4, 3), (6, 8), (8, 6)]
 ````
 
-`for` loop to list comprehension (by copy-paste):
+`for` loop to list comprehension (by copy-paste):<br />
+
 ![image](https://treyhunner.com/images/list-comprehension-condition.gif)
 
 See [more explanations and examples here.](https://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/)

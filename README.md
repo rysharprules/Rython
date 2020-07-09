@@ -16,14 +16,15 @@ Code is situated within the `rython` folder into subfolders `examples` and `exer
 RYTHON
 │   README.md
 │   ...
-│
-└───examples
-│       ...
-└───exercises
-    │   ...
-    └───fizzbuzz
-            fizzbuzz_1.py
-            fizzbuzz_2_stretch.py
+└───rython
+    │
+    └───examples
+    │       ...
+    └───exercises
+        │   ...
+        └───fizzbuzz
+                fizzbuzz_1.py
+                fizzbuzz_2_stretch.py
 ````
 
 - **examples**: Tend be one-off samples of code taken or expanded from the notes.

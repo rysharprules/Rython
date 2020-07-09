@@ -1,8 +1,14 @@
-<!doctype html>
-<html>
-    <head>
-        <title>All Films</title>
-    </head>
-    <body>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block title %}Submit a Review{% endblock %}
+{% block content %}
+    <form action="/films/submit" method="POST">
+        <label for="film_name">Film name:</label><br />
+        <input type="text" id="film_name" name="film_name" maxlength="32" value=""><br />
+        <label for="stars">Star Rating (1 to 5):</label><br>
+        <input type="text" id="stars" name="stars" value="1" maxlength="1"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <p>
+        <a href="/films/list">See all reviews</a>
+    </p>
+{% endblock %}

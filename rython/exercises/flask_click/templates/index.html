@@ -1,20 +1,19 @@
-<!doctype html>
-<html>
-    <head>
-        <title>All Films</title>
-    </head>
-    <body>
-        <table>
-            <tr>
-                <th>Film</th>
-                <th>Stars</th>
-            </tr>
-            {% for review in reviews %}
-            <tr>
-                <td>{{ review.film_name }}</td>
-                <td>{{review.stars}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block title %}All Films{% endblock %}
+{% block content %}
+    <p>
+        <a href="/films/submit">Add a review</a>
+    </p>
+    <table>
+        <tr>
+            <th>Film</th>
+            <th>Stars</th>
+        </tr>
+        {% for review in reviews %}
+        <tr>
+            <td>{{ review.film_name }}</td>
+            <td>{{review.stars}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

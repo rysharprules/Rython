@@ -39,6 +39,7 @@
       - [Removing items](#removing-items)
       - [Length](#length-2)
     - [Set](#set)
+    - [Tuples](#tuples)
   - [Flow Control](#flow-control)
     - [Condtions](#condtions)
     - [Code Blocks](#code-blocks)
@@ -53,7 +54,7 @@
     - [For Loops](#for-loops)
       - [`range` function](#range-function)
       - [`enumerate` function](#enumerate-function)
-      - [List Comprehension](#list-comprehension)
+    - [List Comprehension](#list-comprehension)
     - [Try, Except and Finally](#try-except-and-finally)
       - [Error Types](#error-types)
   - [Functions](#functions)
@@ -501,6 +502,48 @@ A set is essentially a dictionary but without values. Set's are similar to lists
 >>> 'crabgrass' in basket False
 ````
 
+### Tuples
+
+A tuple is a collection of objects which are ordered and immutable (i.e. you cannot update or change the values of tuple elements). Tuples are sequences, just like lists. 
+
+The differences between tuples and lists are:
+- tuples cannot be changed - unlike lists
+- tuples use parentheses `()`, whereas lists use square brackets `[]`
+  
+Creating a tuple is as simple as putting different comma-separated values:
+
+````
+my_tuple = 1, 2, 3
+my_tuple = (1, "Hello", 3.4)
+my_tuple = ("mouse", [8, 4, 6], (1, 2, 3))
+print(my_tuple[0]) # "mouse"
+````
+
+_Note: Optionally you can put these comma-separated values between parentheses._
+
+The empty tuple is written as two parentheses containing nothing:
+
+`my_tuple = ()`
+
+To write a tuple containing a single value you have to include a comma:
+
+`my_tuple = (26,)`
+
+
+Can be used to return multiple values from functions:
+
+````
+def divide_with_remainder(x, y):
+  return x / y,  x % y
+
+output = divide_with_remainder(12, 5)
+print(output) # (2.4, 2)
+value, remainder = output
+print(value, remainder) # 2.4 2
+````
+
+Like string indices, tuple indices start at 0, and they can be sliced, concatenated, and so on. [See this tutorial](https://www.tutorialspoint.com/python/python_tuples.htm) for examples of these function calls.
+
 ## Flow Control
 
 There are several types of flow control statement. Most of them consist of two important parts:
@@ -704,11 +747,41 @@ for index, value in enumerate(teletubbies):
   print (index, ": ", value)
 ````
 
-#### List Comprehension
+### List Comprehension
 
 As an alternative to the `for`, list comprehenstion can be used as a more declarative, easier to read and understand shorthand:
 
+Format: `[expression for item in list]`
+
+Simple examples:
+
 `[print(name) for name in teletubbies]`
+
+````
+h_letters = [ letter for letter in 'human' ]
+print(h_letters) # [ 'h', 'u', 'm', 'a', 'n' ]
+````
+
+More complex examples:
+
+````
+squared_odd_numbers = [ x*x for x in range(20) if x % 2 != 0 ]
+print(squared_odd_numbers) # [1, 9, 25, 49, 81, 121, 169, 225, 289, 361]
+````
+
+````
+pythagorean_triples = [
+    (x, y) for x in range(1, 10)
+    for y in range(1, 10)
+    if math.sqrt(x*x + y*y).is_integer()
+]
+print(pythagorean_triples) # [(3, 4), (4, 3), (6, 8), (8, 6)]
+````
+
+`for` loop to list comprehension (by copy-paste):
+![image](https://treyhunner.com/images/list-comprehension-condition.gif)
+
+See [more explanations and examples here.](https://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/)
 
 ### Try, Except and Finally
 

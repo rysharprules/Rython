@@ -9,8 +9,10 @@
     - [Routing](#routing)
     - [Templates](#templates)
       - [`url_for`](#url_for)
+      - [Static pages](#static-pages)
+      - [Includes and Extends](#includes-and-extends)
     - [Accessing request data](#accessing-request-data)
-  - [I/O operations with `shutils` and `os`](#io-operations-with-shutils-and-os)
+      - [Query parameters](#query-parameters)
 
 ## Packages
 
@@ -168,6 +170,24 @@ When Flask generates the HTML from this template, it will call `url_for()` and r
 
 You can read more about the template syntax in the official [Jinja2 template documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/).
 
+#### Static pages
+
+If you have a static `.html` page you can use the `send_static_file(<file_name>.html)` Flask function. Flask will look for static content in the `/static/...` folder.
+
+#### Includes and Extends
+
+You can include one template within another with `include`:
+
+````
+{% include 'header.html' %}
+  Body
+{% include 'footer.html' %}
+````
+
+One template can _inherit_ from another with `extends`:
+
+![Figure 1.2](img/figure1-2.png)
+
 ### Accessing request data
 
 Data is provided by the [request object](https://flask.palletsprojects.com/en/1.1.x/quickstart/#the-request-object).
@@ -186,12 +206,6 @@ def login():
     return render_template('login_error.html', error=error)
 ````
 
-## I/O operations with `shutils` and `os`
+#### Query parameters
 
-These libraries can be imported with `import shutil, os`.
-
-The [shutil](https://docs.python.org/3/library/shutil.html#module-shutil) module offers a number of high-level operations on files and collections of files. In particular, functions are provided which support file copying and removal. 
-
-For operations on individual files, see also the [os](https://docs.python.org/3/library/os.html#module-os) module. This module provides a portable way of using operating system dependent functionality. 
-
-[See examples via 'Bulk File/Folder Renaming' app](https://github.com/rysharprules/Rython/blob/master/rython/exercises/bulk_file_renaming/).
+Query parameters can be obtained using `request.args[<param_name>]` from `request`.

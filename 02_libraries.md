@@ -117,6 +117,29 @@ argument to the function.
 
 In the above example, requests with URL paths `/books/1` and `/books/27` would cause Flask to call `get_book(1)` and `get_book(27)`, respectively. These are called **variable rules** in Flask and are used to determine what _entity_ the action should be performed on. Variable rules are also capable of extracting more complex values from request paths and validating that those values match an expected format. You can read more about them in the [Flask documentation](https://flask.palletsprojects.com/en/1.1.x/quickstart/#variable-rules).
 
+#### Setting Status Codes
+
+Flask methods (or view functions) can optionally return HTTP status codes as a second return value (as a tuple):
+
+````
+@app.route('/')
+def homepage():
+  return 'Hello There!', 200 # OK
+````
+
+This can be useful for returning error status codes:
+
+````
+@app.route('/book/<id>')
+def get_book(id):
+  try:
+    return dictionary[id], 200
+  except KeyError:
+    return f"No book found with id: {id}", 400 # Bad Request
+````
+
+More detail on what can be returned from view functions can be found at [flask.palletsprojects.com](https://flask.palletsprojects.com/en/1.1.x/quickstart/#about-responses).
+
 ### Templates
 
 Templates allow you to write files containing standard HTML, but use special keywords to add logic and include data from the app, which the template engine then converts into the necessary HTML. Flask uses the [Jinja2](https://palletsprojects.com/p/jinja/) template engine and provides the `render_template()` function to render the HTML from a given template. That function takes the filename of the template as its first argument and any data to be passed to the template as optional keyword arguments.

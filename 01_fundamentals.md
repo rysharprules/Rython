@@ -33,6 +33,7 @@
       - [Concatenation](#concatenation-1)
       - [Length](#length-1)
       - [Copy](#copy)
+      - [Sorting](#sorting)
     - [Dictionary](#dictionary)
       - [Accessing individual items](#accessing-individual-items)
       - [Adding to and modifying](#adding-to-and-modifying)
@@ -428,6 +429,23 @@ another_variable = a_variable.copy()
 ````
 
 This avoids multiple variables pointing to the same reference list.
+
+#### Sorting
+
+You can sort a list with `list.sort()` or `sorted()`. See the [documentation here](https://docs.python.org/3.3/howto/sorting.html#key-functions). Both functions have a `key` parameter to specify a function to be called on each list element prior to making comparisons.
+
+As an example, we can sort a list of items (list of dicts):
+
+````
+items = [
+    { 'id': 1, 'status': 'Not Started', 'title': 'Dishes' },
+    { 'id': 2, 'status': 'Completed', 'title': 'Clean toilet' }
+]
+````
+
+...by their status, and reverse the comparisons with `reverse=True`:
+
+`sorted_items = sorted(items, key=lambda item: item['status'], reverse=True))
 
 ### Dictionary
 

@@ -7,6 +7,7 @@
       - [Creating a virtual enviroment](#creating-a-virtual-enviroment)
   - [Flask Framework](#flask-framework)
     - [Routing](#routing)
+      - [Setting Status Codes](#setting-status-codes)
     - [Templates](#templates)
       - [`url_for`](#url_for)
       - [Static pages](#static-pages)

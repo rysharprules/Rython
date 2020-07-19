@@ -14,6 +14,12 @@
       - [Includes and Extends](#includes-and-extends)
     - [Accessing request data](#accessing-request-data)
       - [Query parameters](#query-parameters)
+  - [Making requests](#making-requests)
+    - [`GET`](#get)
+    - [`POST`](#post)
+    - [`PUT`](#put)
+    - [`DELETE`](#delete)
+    - [Status Codes](#status-codes)
 
 ## Packages
 
@@ -233,3 +239,62 @@ def login():
 #### Query parameters
 
 Query parameters can be obtained using `request.args[<param_name>]` from `request`.
+
+## Making requests
+
+These examples use the [rem-rest-api.herokuapp.com](https://rem-rest-api.herokuapp.com/#what-rem-offers) example RESTful services.
+
+Use the `requests` library:
+
+`import requests`
+
+See a [quick start guide here](https://realpython.com/python-requests/#getting-started-with-requests).
+
+### `GET`
+
+Use the `get` method with the URL as the argument. Parses the data (JSON content) to a Python object with the `json` method. 
+
+````
+response = requests.get('http://rem-rest-api.herokuapp.com/api/users')
+data = response.json()
+````
+
+### `POST`
+
+Use the `post` method with the URL and the data to add as the arguments.
+
+````
+monster = {"name": "Godzilla", "location": "Tokyo"}
+response = requests.post('http://rem-rest-api.herokuapp.com/api/monster', json=monster)
+````
+
+### `PUT`
+
+Similar to `POST`, but as this is an update operation, the `id` is required in the URL path and the data. Here we use the `put` method from `requests`.
+
+````
+response = requests.put('http://rem-rest-api.herokuapp.com/api/monster/1', json={"id": 1, "name": "Gojira", "location": "Tokyo"})
+````
+
+### `DELETE`
+
+Finally, `DELETE` removes the record. The `delete` method requires only the URL path which includes the `id` of the record to be removed.
+
+````
+response = requests.delete('http://rem-rest-api.herokuapp.com/api/monster/1')
+````
+
+These APIs return the record(s) found, created or upated. In this instance, as the record is removed, it returns `None`.
+
+### Status Codes
+
+We can get the status code from the response with:
+
+`response.status_code`
+
+This returns a number representing the status code, e.g. `200` for a successful response. This can be used to determine success of the response and how to act. For example, we can raise an error if the response isn't successful:
+
+````
+if response.status_code != 200:
+    raise ApiError('GET /api/users {}'.format(response.status_code))
+````

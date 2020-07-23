@@ -2,11 +2,15 @@
 
 - [Object Oriented Programming](#object-oriented-programming)
   - [Defining a class](#defining-a-class)
-  - [Initialising an object](#initialising-an-object)
-  - [Attributes](#attributes)
-    - [Mutating class attributes](#mutating-class-attributes)
-  - [Methods](#methods)
-  - [`self`](#self)
+    - [Initialising an object](#initialising-an-object)
+    - [Attributes](#attributes)
+      - [Mutating class attributes](#mutating-class-attributes)
+    - [Methods](#methods)
+    - [`self`](#self)
+    - [Dynamic object altering with `setattr`](#dynamic-object-altering-with-setattr)
+  - [Inheritance](#inheritance)
+    - [Multiple inheritance](#multiple-inheritance)
+    - [`super`](#super)
 
 ## Defining a class
 
@@ -31,16 +35,15 @@ The `__init__` method sets the initial values for _instance attributes_: `make`,
 
 Within the class is a method definition named `change_gear` which changes the `gear` instance attribute value.
 
-## Initialising an object
+### Initialising an object
 
 To create a new object (_instance_) of `Bicycle` we assign a variable to `Bicycle` and set the default values (for `make` and `model`) via it's `__init__` method (constructor).
 
 `my_bike = Bicycle("Cannondale", "Optimo")`
 
-You can define a class without specifying an `__init__` method, in which
-case it will create an instance without any of its attributes set.
+You can define a class without specifying an `__init__` method, in which case it will create an instance without any of its attributes set.
 
-## Attributes
+### Attributes
 
 To access the value of an attribute on a specific object, you use _attribute reference syntax_: `obj.name` — where `obj` is the name of the object (e.g. `my_bike`) and `name` is the name of the attribute (e.g. `model`). For example:
 
@@ -66,7 +69,7 @@ print(Bicycle.wheels) # 2
 print(Bicycle.make) # AttributeError: type object 'Bicycle' has no attribute 'make'
 ````
 
-### Mutating class attributes
+#### Mutating class attributes
 
 Class attributes are mutatable, but they _should_ be kept constant to keep code cleaner and easier to understand, and to avoid surprising behaviour and tricky bugs.
 
@@ -107,13 +110,13 @@ print(obj2.mutableClassVariable) # ['Hello', 'World']
 print(MyClass.mutableClassVariable) # ['Hello', ‘World']
 ````
 
-## Methods
+### Methods
 
 Methods describe the _behaviour_ of an object. Methods in an object take `self` as the first parameter. These functions are known as _instance methods_ because they are called on instances of the class. You omit the `self` argument when you call a method, Python takes care of passing the value of `self` for you:
 
 `my_bike.change_gear(3)`
 
-## `self`
+### `self`
 
 `self` is the instance itself (synonymous with `this` in Java/C#). 
 
@@ -121,3 +124,84 @@ Our `Bicycle` method, `change_gear` defines the behaviour of changing gear for b
 instructions to the `my_bike` instance which Python sends to the function for us via `self`.
 
 Therefore, `my_bike.change_gear(3)` is just shorthand for `Bicycle.change_gear(my_bike, 3)` (which is perfectly valid (if rarely seen) code).
+
+### Dynamic object altering with `setattr`
+
+We can also add attributes and methods in a dynamic way, by using [setattr](https://pythonreference.readthedocs.io/en/latest/docs/functions/setattr.html). `setattr` assigns a value to the object’s attribute given its name:
+
+`setattr (object, name, value)`
+
+Where `object` is an object that allows its attributes to be changed. `name` is a string name of the attribute. `value` is a new value of any type for the attribute named in `name`.
+
+For example, we have a `Tea` object:
+
+````
+class Tea(object):
+  
+  def __init__(self, type, ingredients): # constructor
+    self.type = type
+    self.ingredients = ingredients
+  
+  def prepare_tea(self): # use self.ingredients to make the tea
+    (...)
+````
+
+Attributes can be an existing one or a newly created:
+
+````
+breakfast_tea = Tea("breakfast_tea", ["black_tea", ...])
+setattr(breakfast_tea, "type", "blueberries tea")
+setattr(breakfast_tea, "preparation_time", 20)
+````
+
+Methods can be changed too:
+
+````
+def prepare_sweet_tea(self): # add a lot of sugar & use self.ingredients to make the tea
+  ...
+setattr(breakfast_tea, "prepare_tea", prepare_sweet_tea) # only for the given object
+setattr(Tea, "prepare_tea", prepare_sweet_tea) # for the class
+````
+
+However, "with great power comes great responsibility". So much freedom can end up with:
+- Security vulnerabilities
+- Bugs due to the change of class methods behavior or internal attributes in a way not expected by the class
+
+## Inheritance
+
+When creating a class, add the class in parentheses on the first line of
+a class definition to specify the class that it inherits from:
+
+`class Car(Vehicle):`
+
+### Multiple inheritance
+
+It is possible for a Python class to inherit from multiple base classes:
+
+`class Car(Engine, Wheels):`
+
+When inheriting from multiple base classes the base classes are often referred to as _mixins_ instead (as they are "mixedinto" the class). This can come in handy when you want to break down a class into multiple reusable components.
+
+### `super`
+
+The `super()` method, allows access to any of the base classes methods.
+
+````
+class Rectangle:
+  def __init__(self, length, width):
+    self.length = length
+    self.width = width
+
+class Square(Rectangle):
+  def __init__(self, length):
+    super().__init__(length, length)
+````
+
+You can also use `super()` to access base methods from further down the inheritance hierarchy by providing the target class as a parameter:
+
+````
+class ColouredSquare(Square):
+  def __init__(self, length, colour):
+    self.colour = colour
+    super(Rectangle).__init__(length, length) # Calls __init__ from Rectangle and not Square
+````

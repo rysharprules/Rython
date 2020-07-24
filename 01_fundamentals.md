@@ -885,3 +885,55 @@ print(square(3))
 ````
 
 _Note: An empty return will return `None`, similar to `null`. It's shorthand for `return None`_
+
+### `pass`
+
+The `pass` statement is a null operation -- when it is executed, nothing happens. It is useful as a placeholder when a statement is required syntactically, but no code needs to be executed, for example:
+
+`def f(arg): pass    # a function that does nothing (yet)`
+
+`pass` statements can also be assigned to objects (see part 4, Object Oriented Programming):
+
+`class C: pass       # a class with no methods (yet)`
+
+### `*args` and `**kwargs`
+
+See [How To Use *args and **kwargs in Python 3](https://www.digitalocean.com/community/tutorials/how-to-use-args-and-kwargs-in-python-3) for more details.
+
+These are also known as [variadic functions](https://en.wikipedia.org/wiki/Variadic_function). This is similar to varargs (`String... args`) in Java and the spread operator (`...`) in Javascript
+
+#### `*args`
+
+The single-asterisk form of `*args` can be used as a parameter to send a non-keyworded variable-length argument list to functions. It is worth noting that the asterisk (`*`) is the important element here, as the word `args` is the established conventional idiom, though it is not enforced by the language.
+
+````
+def multiply(*args):
+  z = 1
+  for num in args:
+      z *= num
+  print(z)
+
+multiply(4, 5)
+multiply(10, 9)
+multiply(2, 3, 4)
+multiply(3, 5, 10, 6)
+````
+
+Outputs: `20 90 24 900`
+
+Because we used `*args` to send a variable-length argument list to our function, we were able to pass in as many arguments as we wished into the function calls.
+
+#### `**kwargs`
+
+The double asterisk form of `**kwargs` is used to pass a keyworded, variable-length argument dictionary to a function. Again, the two asterisks (`**`) are the important element here, as the word kwargs is conventionally used, though not enforced by the language.
+
+Like `*args`, `**kwargs` can take however many arguments you would like to supply to it. However, `**kwargs` differs from `*args` in that you will need to assign keywords.
+
+````
+def print_kwargs(**kwargs):
+  print(kwargs)
+
+print_kwargs(kwargs_1="Shark", kwargs_2=4.5, kwargs_3=True)
+````
+
+Outputs: `{'kwargs_3': True, 'kwargs_2': 4.5, 'kwargs_1': 'Shark'}`

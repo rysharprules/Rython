@@ -167,6 +167,116 @@ However, "with great power comes great responsibility". So much freedom can end 
 - Security vulnerabilities
 - Bugs due to the change of class methods behavior or internal attributes in a way not expected by the class
 
+### Decorators
+
+[Decorators](https://book.pythontips.com/en/latest/decorators.html) can be added to functions.
+
+It can be used to attach logic to a function, logging for example:
+
+````
+import datetime
+
+def log_function_call(func):
+  def with_logging(*args, **kwargs):
+    func(*args, **kwargs)
+    print(func.__name__ + " was called at " + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+  return with_logging
+
+@log_function_call
+def say_hello():
+  print("Hello")
+
+say_hello()
+````
+
+`func` is an argument given to the function `log_function_call`. The expression `func()` means "call the function assigned to the variable `func`." The decorator is taking another function as an argument, and returning a new function (defined as `with_logging`) which executes the given function `func` when it is run.
+
+To summarise, we have a function inside a function which returns that function. Using the `@` marks the function (`say_hello`) as requiring decoration.
+
+We can get a function's name using `.__name__`. Using `func.__name__` gets the name of the function passed as `func`, in this case, `say_hello`.
+
+See [Primer on Python Decorators](https://realpython.com/primer-on-python-decorators/) for further reading.
+
+#### Add methods to classes with decorators
+
+You can go as far as adding methods to classes with decorators:
+
+````
+class A(object):
+  def __init__(self):
+    self.x = 0
+
+  def add_method(cls):
+    def decorator(func):
+      setattr(cls, func.__name__, func)
+      return func
+    return decorator
+
+@add_method(A)
+def foo(self):
+  print(self.x)
+
+a = A()
+
+a.foo() # should print 0 
+````
+
+Here we pass the class itself, `A` to the `add_method`, then use `setattr` to add the function `foo` to `A`.
+
+#### `wraps`
+
+If we call `print(say_hello.__name__)`, the output will be `wrapTheFunction`. Our function was replaced by `wrapTheFunction`. It overrode the name and docstring of our function. `functools.wraps` fixes this problem. Import:
+
+`from functools import wraps`
+
+Now we call with the added `@wraps` annotation in the decorator:
+
+````
+def log_function_call(func):
+  @wraps(func)
+  def with_logging(*args, **kwargs):
+    func(*args, **kwargs)
+    print(func.__name__ + " was called at " + datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+  return with_logging
+````
+
+`@wraps` takes a function to be decorated and adds the functionality of copying over the function name, docstring, arguments list, etc. This allows us to access the pre-decorated function’s properties in the decorator.
+
+#### The `@property` decorator
+
+Python has the OOP practice of getters and setters, which can be implemented with the `@property` decorator:
+
+````
+class Student(object):
+
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+  @property
+  def age(self):
+    print("Get Value")
+    return self._age
+
+  @age.setter
+  def age(self, value):
+    print("Set Value")
+    if value< 0:
+      raise ValueError("Age below 0 is not possible")
+    self._age = value
+
+st = Student("Mark", 20) # set initial value with __init__
+print(st.age) # get value (prints 20)
+st.age = 25 # set value
+print(st.age) # get value (prints 25)
+````
+
+Use `@decorator` for getters methods and `@{attribute}.setter` for the setter method.
+
+##### Encapsulation in Python
+
+See [Python — Encapsulation Does it exists??](https://medium.com/@manjuladube/encapsulation-abstraction-35999b0a3911).
+
 ## Inheritance
 
 When creating a class, add the class in parentheses on the first line of
@@ -204,4 +314,28 @@ class ColouredSquare(Square):
   def __init__(self, length, colour):
     self.colour = colour
     super(Rectangle).__init__(length, length) # Calls __init__ from Rectangle and not Square
+````
+
+### Abstract classes
+
+Python's `abc` module contains a class named `ABC` (**abstract base class**). Making a class inherit from `ABC` and making one of its methods virtual will make that class an `ABC`. A virtual method is one that the `ABC` says must exist in child classes, but doesn't necessarily actually implement. Import `abc`:
+
+`from abc import ABC, abstractmethod`
+
+With `ABC` imported, a class can be marked as abstract by adding `ABC` to the class definition:
+
+`class Vehicle(ABC):`
+
+Now the class is abstract we can make abstract methods:
+
+````
+@abstractmethod
+def vehicle_type(self):
+````
+
+Now, since `vehicle_type` has been marked as an abstract method, we can't directly create an instance of `Vehicle`:
+
+````
+vehicle = Vehicle() # Raises the following error
+TypeError: Can't instantiate abstract class Vehicle with abstract methods vehicle_type
 ````

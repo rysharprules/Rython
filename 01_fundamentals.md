@@ -60,6 +60,11 @@
       - [Error Types](#error-types)
   - [Functions](#functions)
     - [Returning data](#returning-data)
+    - [`pass`](#pass)
+    - [`*args` and `**kwargs`](#args-and-kwargs)
+      - [`*args`](#args)
+      - [`**kwargs`](#kwargs)
+  - [Lambdas](#lambdas)
 
 ## Installation
 
@@ -937,3 +942,37 @@ print_kwargs(kwargs_1="Shark", kwargs_2=4.5, kwargs_3=True)
 ````
 
 Outputs: `{'kwargs_3': True, 'kwargs_2': 4.5, 'kwargs_1': 'Shark'}`
+
+## Lambdas
+
+Lambdas provide a way of declaring simple functions inline without having to write a full function definition:
+
+````
+a_variable = lambda a, b: a + b
+print(a_variable(2,3)) # 5
+````
+
+A lambda declaration contains (in order):
+
+1. The keyword `lambda`
+2. A list of function arguments (keyword arguments are allowed), e.g. `a` and `b` seperated by a comma (`,`)
+3. An expression, e.g. `a + b`
+
+The expression becomes the return value of the function. Note that you cannot:
+
+- Use multiple expressions within a `lambda`
+- Use `return` or flow control (`if`, `while`)
+- Assign the `lambda` a function name
+- Use type hints for the arguments or the return type
+  
+Apart from these restrictions lambdas act like any other function object. You can
+even immediately invoke them: 
+
+`print((lambda a, b: a + b)(2,3)) # 5`
+
+Because of their limitations Lambdas are best used when:
+
+- They are relatively straightforward (and their usage is easy to understand)
+- They are not going to be heavily reused 
+  
+If not, they should be promoted to full functions.

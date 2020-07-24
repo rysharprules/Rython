@@ -8,9 +8,15 @@
     - [Methods](#methods)
     - [`self`](#self)
     - [Dynamic object altering with `setattr`](#dynamic-object-altering-with-setattr)
+    - [Decorators](#decorators)
+      - [Add methods to classes with decorators](#add-methods-to-classes-with-decorators)
+      - [`wraps`](#wraps)
+      - [The `@property` decorator](#the-property-decorator)
+        - [Encapsulation in Python](#encapsulation-in-python)
   - [Inheritance](#inheritance)
     - [Multiple inheritance](#multiple-inheritance)
     - [`super`](#super)
+    - [Abstract classes](#abstract-classes)
 
 ## Defining a class
 

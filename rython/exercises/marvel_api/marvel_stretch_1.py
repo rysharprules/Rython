@@ -62,6 +62,7 @@ while searching:
         data = call_name_starts_with_search(url, private_key, public_key, character)
         if are_results_empty(data):
             print('No information on ' + character + ' found. Are you sure you typed their name correctly?')
+            continue
         else:
             if len(data['results']) == 1:
                 print('Result found for character: ' + data['results'][0]['name'] + '\n')

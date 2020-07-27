@@ -24,7 +24,7 @@ if valid:
     hash = hashlib.md5((ts + private_key + public_key).encode())
     url = 'https://gateway.marvel.com:443/v1/public/characters?name=' + character + '&apikey=' + public_key + '&ts=' + ts + '&hash=' + hash.hexdigest()
     
-    print('Searching for description for ' + character + '...')
+    print('Searching for a description for ' + character + '...')
 
     response = requests.get(url)
     data = response.json()['data']

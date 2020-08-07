@@ -891,6 +891,16 @@ print(square(3))
 
 _Note: An empty return will return `None`, similar to `null`. It's shorthand for `return None`_
 
+#### Type hints
+
+Type Hints (also known as _Type Annotations_) allow you to specify the types for the variables, parameters and return values that you define. For example, in this method, we have used the `: str` syntax to indicate that the `name` parameter should be a string, and the `→ str` syntax to indicate that the return value should
+also be a string.
+
+def greeting(name: str) -> str:
+  return f"Hello {name}"
+
+Adding these type hints doesn't affect how the code runs (python will ignore them), but they can be used by other tools (e.g. IDEs) to make it easier to write code.
+
 ### `pass`
 
 The `pass` statement is a null operation -- when it is executed, nothing happens. It is useful as a placeholder when a statement is required syntactically, but no code needs to be executed, for example:

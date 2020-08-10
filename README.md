@@ -45,3 +45,4 @@ _Note: Use forward slash for Unix/Mac `/` between folders when changing director
 1. [Libraries and the Flask web framework](https://github.com/rysharprules/Rython/blob/master/02_libraries.md)
 1. [Input/Output](https://github.com/rysharprules/Rython/blob/master/03_io.md)
 1. [Object Oriented Programming](https://github.com/rysharprules/Rython/blob/master/04_oop.md)
+1. [OAuth](https://github.com/rysharprules/Rython/blob/master/05_oauth.md)

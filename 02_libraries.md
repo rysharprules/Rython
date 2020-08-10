@@ -1,5 +1,13 @@
 # Libraries and the Flask web framework
 
+**Pages**
+| Previous | Home | Next |
+|---|---|---|
+| [Fundamentals](https://github.com/rysharprules/Rython/blob/master/01_fundamentals.md) | [Home](https://github.com/rysharprules/Rython) | [Input/Output](https://github.com/rysharprules/Rython/blob/master/03_io.md) |
+
+----
+
+**Contents**
 - [Libraries and the Flask web framework](#libraries-and-the-flask-web-framework)
   - [Packages](#packages)
     - [Importing](#importing)

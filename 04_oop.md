@@ -1,5 +1,13 @@
 # Object Oriented Programming
 
+**Pages**
+| Previous | Home | Next |
+|---|---|---|
+| [Input/Output](https://github.com/rysharprules/Rython/blob/master/03_io.md) | [Home](https://github.com/rysharprules/Rython) | [OAuth](https://github.com/rysharprules/Rython/blob/master/05_oauth.md) |
+
+----
+
+**Contents**
 - [Object Oriented Programming](#object-oriented-programming)
   - [Defining a class](#defining-a-class)
     - [Initialising an object](#initialising-an-object)
@@ -121,6 +129,8 @@ print(MyClass.mutableClassVariable) # ['Hello', ‘World']
 Methods describe the _behaviour_ of an object. Methods in an object take `self` as the first parameter. These functions are known as _instance methods_ because they are called on instances of the class. You omit the `self` argument when you call a method, Python takes care of passing the value of `self` for you:
 
 `my_bike.change_gear(3)`
+
+To call a method from inside the same class you need to use `self` to refer to that object, e.g. `self.change_gear(3)`
 
 ### `self`
 

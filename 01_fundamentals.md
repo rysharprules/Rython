@@ -1,5 +1,13 @@
 # Fundamentals
 
+**Pages**
+| Home | Next |
+|---|---|
+| [Home](https://github.com/rysharprules/Rython) | [Libraries and the Flask web framework](https://github.com/rysharprules/Rython/blob/master/02_libraries.md) |
+
+----
+
+**Contents**
 - [Fundamentals](#fundamentals)
   - [Installation](#installation)
   - [Basics](#basics)
@@ -60,6 +68,7 @@
       - [Error Types](#error-types)
   - [Functions](#functions)
     - [Returning data](#returning-data)
+      - [Type hints](#type-hints)
     - [`pass`](#pass)
     - [`*args` and `**kwargs`](#args-and-kwargs)
       - [`*args`](#args)

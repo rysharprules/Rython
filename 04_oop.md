@@ -132,6 +132,76 @@ Methods describe the _behaviour_ of an object. Methods in an object take `self` 
 
 To call a method from inside the same class you need to use `self` to refer to that object, e.g. `self.change_gear(3)`
 
+### `@staticmethod` and `@classmethod`
+
+````
+class A(object):
+    def foo(self, x):
+        print "executing foo(%s, %s)" % (self, x)
+
+    @classmethod
+    def class_foo(cls, x):
+        print "executing class_foo(%s, %s)" % (cls, x)
+
+    @staticmethod
+    def static_foo(x):
+        print "executing static_foo(%s)" % x    
+
+a = A()
+````
+
+Below is the usual way an object instance calls a method. The object instance, `a`, is implicitly passed as the first argument:
+
+`a.foo(1) # executing foo(<__main__.A object at 0xb7dbef0c>,1)`
+
+With `classmethods`, the class of the object instance is implicitly passed as the first argument instead of `self`.
+
+`a.class_foo(1) # executing class_foo(<class '__main__.A'>,1)`
+
+You can also call `class_foo` using the class. In fact, if you define something to be a `classmethod`, it is probably because you intend to call it from the class rather than from a class instance. `A.foo(1)` would have raised a `TypeError`, but `A.class_foo(1)` works just fine:
+
+`A.class_foo(1) # executing class_foo(<class '__main__.A'>,1)`
+
+One use people have found for class methods is to create _inheritable alternative constructors_.
+
+With `staticmethods`, neither `self` (the object instance) nor `cls` (the class) is implicitly passed as the first argument. They behave like plain functions except that you can call them from an instance or the class:
+
+````
+a.static_foo(1) # executing static_foo(1)
+A.static_foo('hi') # executing static_foo(hi)
+````
+
+`staticmethods` are used to group functions which have some logical connection with a class to the class.
+
+#### Inheritable alternative constructors
+
+One of the main uses of `classmethod` is to define alternative constructors:
+
+````
+class Cheese(object):
+    def __init__(self, num_holes=0):
+        "defaults to a solid cheese"
+        self.number_of_holes = num_holes
+
+    @classmethod
+    def random(cls):
+        return cls(randint(0, 100))
+
+    @classmethod
+    def slightly_holey(cls):
+        return cls(randint(0, 33))
+
+    @classmethod
+    def very_holey(cls):
+        return cls(randint(66, 100))
+````
+
+````
+gouda = Cheese()
+emmentaler = Cheese.random()
+leerdammer = Cheese.slightly_holey()
+````
+
 ### `self`
 
 `self` is the instance itself (synonymous with `this` in Java/C#). 

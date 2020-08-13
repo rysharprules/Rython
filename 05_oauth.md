@@ -3,7 +3,7 @@
 **Pages**
 | Previous | Home | Next |
 |---|---|---|
-| [Object Oriented Programming](https://github.com/rysharprules/Rython/blob/master/04_oop.md) | [Home](https://github.com/rysharprules/Rython) | |
+| [Object Oriented Programming](https://github.com/rysharprules/Rython/blob/master/04_oop.md) | [Home](https://github.com/rysharprules/Rython) | [Testing](https://github.com/rysharprules/Rython/blob/master/06_testing.md) |
 
 ----
 

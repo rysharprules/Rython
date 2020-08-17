@@ -3,7 +3,7 @@
 **Pages**
 | Previous | Home | Next |
 |---|---|---|
-| [Oauth](https://github.com/rysharprules/Rython/blob/master/05_oauth.md) | [Home](https://github.com/rysharprules/Rython) | |
+| [OAuth](https://github.com/rysharprules/Rython/blob/master/05_oauth.md) | [Home](https://github.com/rysharprules/Rython) | |
 
 ----
 

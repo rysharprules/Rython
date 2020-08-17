@@ -9,7 +9,25 @@
 
 **Contents**
 - [Testing](#testing)
-  - [](#)
+  - [Static analysis tools](#static-analysis-tools)
+  - [Unit testing](#unit-testing)
+    - [Structure](#structure)
+    - [Tools](#tools)
+      - [Unittest](#unittest)
+      - [Pytest](#pytest)
+    - [Fixtures](#fixtures)
+    - [Handling Errors](#handling-errors)
+    - [Parametrised Tests](#parametrised-tests)
+  - [Code Coverage](#code-coverage)
+  - [Test doubles and mocking strategies](#test-doubles-and-mocking-strategies)
+    - [Python tools](#python-tools)
+      - [Example](#example)
+  - [Integration testing](#integration-testing)
+  - [End-to-end testing](#end-to-end-testing)
+    - [Headless browsers](#headless-browsers)
+  - [Snapshot testing](#snapshot-testing)
+  - [Contract testing](#contract-testing)
+  - [Laboratory/Scientist](#laboratoryscientist)
 
 ## Static analysis tools
 

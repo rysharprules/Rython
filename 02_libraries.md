@@ -28,6 +28,9 @@
     - [`PUT`](#put)
     - [`DELETE`](#delete)
     - [Status Codes](#status-codes)
+  - [Virtual environments](#virtual-environments-1)
+    - [Poetry](#poetry)
+      - [VSCode configuration](#vscode-configuration)
 
 ## Packages
 

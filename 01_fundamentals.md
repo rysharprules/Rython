@@ -69,6 +69,7 @@
   - [Functions](#functions)
     - [Returning data](#returning-data)
       - [Type hints](#type-hints)
+      - [Type aliases](#type-aliases)
     - [`pass`](#pass)
     - [`*args` and `**kwargs`](#args-and-kwargs)
       - [`*args`](#args)

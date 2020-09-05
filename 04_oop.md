@@ -328,7 +328,7 @@ def log_function_call(func):
 
 `@wraps` takes a function to be decorated and adds the functionality of copying over the function name, docstring, arguments list, etc. This allows us to access the pre-decorated function’s properties in the decorator.
 
-#### The `@property` decorator
+#### The `@property` and `@[attr].setter decorators
 
 Python has the OOP practice of getters and setters, which can be implemented with the `@property` decorator:
 
@@ -362,6 +362,23 @@ Use `@decorator` for getters methods and `@{attribute}.setter` for the setter me
 ##### Encapsulation in Python
 
 See [Python — Encapsulation Does it exists??](https://medium.com/@manjuladube/encapsulation-abstraction-35999b0a3911).
+
+### Data classes
+
+A new feature in Python 3.7 was the data class. A data class is a class typically containing mainly data, although there aren’t really any restrictions. It is created using the new `@dataclass` decorator, as follows:
+
+````
+from dataclasses import dataclass
+
+@dataclass
+class DataClassCard:
+    rank: str
+    suit: str
+````
+
+A data class comes with basic functionality already implemented. By default, data classes implement a `__init__` method to set the instance attributes, a `__repr__()` method to provide a nice string representation and an `__eq__()` method that can do basic object comparisons.
+
+See the [Python docs](https://docs.python.org/3/library/dataclasses.html) and this guide from [RealPython.com](https://realpython.com/python-data-classes/) for more info.
 
 ## Inheritance
 

@@ -524,7 +524,7 @@ You can get the length of a dictionary using the `len` function:
 
 ### Set
 
-A set is essentially a dictionary but without values. Set's are similar to lists except they do not allow duplicates and looking up an item by key in a set is relatively fast compared to looking up an item by value in a list.
+A set is essentially a dictionary but without values. Set's are similar to lists except they do NOT allow duplicates and looking up an item by key in a set is relatively fast compared to looking up an item by value in a list.
 
 ````
 >>> basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
@@ -533,6 +533,8 @@ A set is essentially a dictionary but without values. Set's are similar to lists
 >>> 'orange' in basket True
 >>> 'crabgrass' in basket False
 ````
+
+See [Python docs](https://docs.python.org/3/library/stdtypes.html#set) and [W3Schools](https://www.w3schools.com/python/python_sets.asp) for more on `Set`.
 
 ### Tuples
 
@@ -909,6 +911,22 @@ def greeting(name: str) -> str:
   return f"Hello {name}"
 
 Adding these type hints doesn't affect how the code runs (python will ignore them), but they can be used by other tools (e.g. IDEs) to make it easier to write code.
+
+#### Type aliases
+
+**Type annotations** are optional in Python, but help document your code and allows your editor to provide more informative prompts. They are needed to define dataclasses.
+
+````
+from typing import List
+Vector = List[float]
+
+def scale(scalar: float, vector: Vector) -> Vector:
+    return [scalar * num for num in vector]
+
+new_vector = scale(2.0, [1.0, -4.2, 5.4]) # typechecks; a list of floats qualifies as a Vector.
+````
+
+See [Python docs](https://docs.python.org/3/library/typing.html) for more.
 
 ### `pass`
 

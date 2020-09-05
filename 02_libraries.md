@@ -306,3 +306,44 @@ This returns a number representing the status code, e.g. `200` for a successful 
 if response.status_code != 200:
     raise ApiError('GET /api/users {}'.format(response.status_code))
 ````
+
+## Virtual environments
+
+### Poetry
+
+[Poetry](https://python-poetry.org/docs/) is a tool for dependency management and packaging in Python (e.g. you can install dependencies using the command `poetry install`).
+
+We can also use poetry to manage virtual environments (so we can use different python versions). Poetry is much better suited to this use case than `pip`: Multiple `venvs` can be created side by side. To create and use a new `venv`, switch python versions using `pyenv` then create a new `venv`:
+
+````
+pyenv global <different python version>
+poetry install
+````
+
+With `pip` this is only possible by deleting the `venv` and recreating it using a different python version. See this discussion on [StackOverflow](https://stackoverflow.com/questions/58218592/feature-comparison-between-npm-pip-pipenv-and-poetry-package-managers) regarding "Feature comparison between npm, pip, pipenv and poetry package managers"
+
+See [Managing environments](https://python-poetry.org/docs/managing-environments/) for more info on project environment isolation.
+
+#### VSCode configuration
+
+In order to get VSCode working nicely with poetry you will need to install the virtual env folder in a place where VSCode can find it. An easy way to do this is to change the poetry config to store the venv folder in your project folder:
+
+````
+poetry config virtualenvs.in-project true # to set this globally
+poetry config --local virtualenvs.in-project true # to set for the current project only
+````
+
+Next you'll need to re-run `poetry install` to actually trigger the generation of the `.venv` folder.
+
+After this VSCode should notice the virtual environment folder and ask if you'd like to use it (say yes). This sets the "python.pythonPath" value in `.vscode/settings.json`.
+
+You have a Python interpreter per virtual environment, and you need to tell VSCode which one to use. Use these commands to find the path to your Python interpreter:
+
+````
+poetry run which python (Mac / Linux / WSL)
+poetry run where python (Windows PowerShell)
+````
+
+When running applications that require the virtual environment, you may need to run them (`flask run`, `pytest` etc.) within a poetry shell. Run `poetry shell` to achieve this.
+
+See Corndel's [chessington](https://github.com/CorndelWithSoftwire/chessington-python) as an example of a poetry application.

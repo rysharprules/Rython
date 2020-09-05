@@ -126,6 +126,13 @@ Pytest discovers tests by a few default rules:
 
 It's common to use a test package structure that mirrors the package structure in source code, but this is not required. There are many other ways to structure your tests, and you can read recommendations and tips on the [pytest documentation](https://docs.pytest.org/en/stable/goodpractices.html#test-package-name).
 
+_Note: VSCode integrates with pytest, but only if you tell it. In VSCode settings, set these values:_
+````
+"python.testing.unittestEnabled": false
+"python.testing.nosetestsEnabled": false
+"python.testing.pytestEnabled": true
+````
+
 ### Fixtures
 
 ````
